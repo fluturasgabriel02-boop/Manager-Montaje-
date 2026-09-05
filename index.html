@@ -2,181 +2,1092 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#111827">
-<title>Manager Montaj PVC</title>
+<title>Manager Montaj</title>
+
 <style>
-:root{--bg:#f3f4f6;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#2563eb;--green:#16a34a;--red:#dc2626;--orange:#d97706}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:82px}
-header{background:#111827;color:white;padding:18px 16px calc(18px + env(safe-area-inset-top));position:sticky;top:0;z-index:5}header h1{margin:0;font-size:21px}header p{margin:4px 0 0;color:#cbd5e1;font-size:13px}
-main{max-width:900px;margin:auto;padding:14px}.view{display:none}.view.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 1px 2px #00000008}
-.metric{font-size:21px;font-weight:800;margin-top:5px}.label{font-size:12px;color:var(--muted)}.green{color:var(--green)}.red{color:var(--red)}.blue{color:var(--accent)}.orange{color:var(--orange)}
-h2{font-size:20px;margin:8px 0 14px}h3{font-size:16px;margin:0 0 8px}
-button,.btn{border:0;border-radius:12px;padding:12px 14px;font-weight:700;font-size:14px;background:var(--accent);color:white;cursor:pointer}.btn.secondary{background:#e5e7eb;color:#111827}.btn.green{background:var(--green);color:white}.btn.red{background:var(--red);color:white}.btn.small{padding:8px 10px;font-size:12px}
-.actions{display:flex;gap:8px;flex-wrap:wrap}
-input,select{width:100%;padding:12px;border:1px solid #d1d5db;border-radius:10px;background:white;font-size:15px;color:var(--text)}
-label{display:block;font-size:12px;font-weight:700;margin:9px 0 5px;color:#374151}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.list-item{padding:12px 0;border-top:1px solid var(--line)}.list-item:first-child{border-top:0}
-.badge{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:700;background:#e5e7eb}.badge.green{background:#dcfce7;color:#166534}.badge.orange{background:#ffedd5;color:#9a3412}.badge.red{background:#fee2e2;color:#991b1b}.badge.blue{background:#dbeafe;color:#1e40af}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px calc(7px + env(safe-area-inset-bottom));z-index:10}.nav{background:none;color:#6b7280;padding:7px 2px;font-size:10px}.nav.active{color:var(--accent)}.nav b{display:block;font-size:18px;margin-bottom:2px}
-table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:9px 5px;border-bottom:1px solid var(--line)}.right{text-align:right}
-.empty{text-align:center;color:var(--muted);padding:25px 10px}.modal{position:fixed;inset:0;background:#0008;display:none;align-items:flex-end;z-index:20}.modal.show{display:flex}.sheet{background:white;width:100%;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(22px + env(safe-area-inset-bottom))}.close{float:right;background:#e5e7eb;color:#111827}
-hr{border:0;border-top:1px solid var(--line);margin:14px 0}
-@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.bottom{position:sticky;top:0;bottom:auto}.nav{font-size:12px}.modal{align-items:center}.sheet{max-width:600px;border-radius:20px}}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#f3f4f6;
+ color:#111827;
+ font-family:Arial,Helvetica,sans-serif;
+ padding-bottom:80px
+}
+header{
+ background:#111827;
+ color:white;
+ padding:22px 18px;
+ position:sticky;
+ top:0;
+ z-index:10
+}
+header h1{margin:0;font-size:24px}
+header p{margin:6px 0 0;color:#cbd5e1}
+main{max-width:1100px;margin:auto;padding:18px}
+nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ background:white;
+ border-top:1px solid #ddd;
+ display:flex;
+ justify-content:space-around;
+ z-index:20;
+ padding:8px
+}
+nav button{
+ border:0;
+ background:none;
+ font-weight:bold;
+ color:#475569;
+ padding:8px;
+ cursor:pointer
+}
+nav button.active{color:#2563eb}
+.view{display:none}
+.view.active{display:block}
+.card{
+ background:white;
+ border:1px solid #ddd;
+ border-radius:14px;
+ padding:18px;
+ margin-bottom:15px;
+ box-shadow:0 2px 8px #0000000b
+}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:12px
+}
+.metric{
+ background:white;
+ border-radius:14px;
+ padding:18px;
+ border:1px solid #ddd
+}
+.metric strong{
+ display:block;
+ font-size:25px;
+ margin-top:5px
+}
+input,select{
+ width:100%;
+ padding:12px;
+ border:1px solid #cbd5e1;
+ border-radius:9px;
+ font-size:15px;
+ margin-top:5px
+}
+label{
+ display:block;
+ font-size:13px;
+ font-weight:bold;
+ margin-bottom:10px
+}
+button{
+ border:0;
+ border-radius:9px;
+ padding:11px 15px;
+ font-size:14px;
+ font-weight:bold;
+ cursor:pointer
+}
+.btn{background:#2563eb;color:white}
+.green{background:#16a34a;color:white}
+.orange{background:#d97706;color:white}
+.red{background:#dc2626;color:white}
+.gray{background:#e5e7eb;color:#111827}
+.actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-top:12px
+}
+.badge{
+ display:inline-block;
+ padding:5px 9px;
+ border-radius:999px;
+ font-size:12px;
+ font-weight:bold
+}
+.badge.green{background:#dcfce7;color:#166534}
+.badge.orange{background:#fef3c7;color:#92400e}
+.badge.red{background:#fee2e2;color:#991b1b}
+.badge.blue{background:#dbeafe;color:#1e40af}
+.row{
+ display:flex;
+ justify-content:space-between;
+ gap:15px;
+ padding:11px 0;
+ border-bottom:1px solid #e5e7eb
+}
+.row:last-child{border-bottom:0}
+.right{text-align:right}
+.empty{
+ text-align:center;
+ color:#64748b;
+ padding:30px
+}
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ background:#0008;
+ z-index:50;
+ align-items:center;
+ justify-content:center;
+ padding:15px
+}
+.modal.show{display:flex}
+.sheet{
+ background:white;
+ width:100%;
+ max-width:650px;
+ max-height:90vh;
+ overflow:auto;
+ border-radius:15px;
+ padding:20px
+}
+.close{
+ float:right;
+ background:#e5e7eb
+}
+h2{margin-top:0}
+table{
+ width:100%;
+ border-collapse:collapse;
+ margin-top:12px
+}
+th,td{
+ text-align:left;
+ padding:10px;
+ border-bottom:1px solid #e5e7eb
+}
+@media(max-width:600px){
+ main{padding:10px}
+ .card{padding:14px}
+ .metric strong{font-size:21px}
+}
 </style>
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Manager Montaj"></head>
+</head>
+
 <body>
-<header><h1>Manager Montaj</h1><p>Gestionare echipe • lucrări • financiar • bancă</p></header>
+
+<header>
+<h1>Manager Montaj</h1>
+<p>Gestionare echipe • lucrări • situații • încasări</p>
+</header>
+
 <main>
+
+<!-- DASHBOARD -->
 <section id="dashboard" class="view active">
 <h2>Dashboard</h2>
+
 <div class="grid">
-<div class="card"><div class="label">În bancă</div><div id="mBank" class="metric blue">0 lei</div></div>
-<div class="card"><div class="label">De încasat</div><div id="mReceivable" class="metric orange">0 lei</div></div>
-<div class="card"><div class="label">De plătit montatori</div><div id="mPayable" class="metric red">0 lei</div></div>
-<div class="card"><div class="label">Profit estimat</div><div id="mProfit" class="metric green">0 lei</div></div>
+<div class="metric">
+Lucrări
+<strong id="mWorks">0</strong>
 </div>
-<div class="card"><h3>Acțiuni rapide</h3><div class="actions"><button onclick="openWork()">➕ Lucrare</button><button class="btn secondary" onclick="openTeam()">👷 Echipă</button><button class="btn secondary" onclick="openBank()">🏦 Tranzacție</button></div></div>
-<div class="card"><h3>Ultimele lucrări</h3><div id="recentWorks"></div></div>
+
+<div class="metric">
+Valoare lucrări
+<strong id="mValue">0 lei</strong>
+</div>
+
+<div class="metric">
+Încasat de la clienți
+<strong id="mClientPaid">0 lei</strong>
+</div>
+
+<div class="metric">
+De încasat
+<strong id="mClientDebt">0 lei</strong>
+</div>
+</div>
+
+<div class="card" style="margin-top:15px">
+<h2>Ultimele lucrări</h2>
+<div id="recentWorks"></div>
+</div>
 </section>
 
+
+<!-- LUCRARI -->
 <section id="works" class="view">
-<h2>🪟 Lucrări</h2><button onclick="openWork()">➕ Adaugă lucrare</button>
-<div id="worksList" style="margin-top:12px"></div>
-</section>
+<h2>Lucrări</h2>
 
-<section id="teams" class="view">
-<h2>👷 Echipe</h2><button onclick="openTeam()">➕ Adaugă echipă</button>
-<div id="teamsList" style="margin-top:12px"></div>
-</section>
+<div class="card">
+<h3>Adaugă lucrare</h3>
 
-<section id="finance" class="view">
-<h2>💰 Financiar</h2>
-<div class="grid">
-<div class="card"><div class="label">Valoare lucrări</div><div id="fValue" class="metric">0 lei</div></div>
-<div class="card"><div class="label">Încasat clienți</div><div id="fIn" class="metric green">0 lei</div></div>
-<div class="card"><div class="label">De încasat</div><div id="fDue" class="metric orange">0 lei</div></div>
-<div class="card"><div class="label">Cost montatori</div><div id="fCost" class="metric red">0 lei</div></div>
+<label>
+Numele lucrării
+<input id="workName" placeholder="Ex: Hamburg">
+</label>
+
+<label>
+Client
+<input id="workClient" placeholder="Numele clientului">
+</label>
+
+<label>
+Valoare totală lucrare
+<input id="workValue" type="number" min="0" placeholder="Ex: 50000">
+</label>
+
+<button class="btn" onclick="addWork()">+ Adaugă lucrare</button>
 </div>
-<div class="card"><h3>Profit</h3><div class="row"><div><div class="label">Profit estimat</div><div id="fProfit" class="metric green">0 lei</div></div><div><div class="label">Profit realizat după plăți</div><div id="fReal" class="metric">0 lei</div></div></div></div>
-<div class="card"><h3>Solduri montatori</h3><div id="teamDue"></div></div>
+
+<div id="worksList"></div>
 </section>
 
-<section id="bank" class="view">
-<h2>🏦 Bancă</h2>
-<div class="card"><div class="label">Sold</div><div id="bankBalance" class="metric blue">0 lei</div></div>
-<button onclick="openBank()">➕ Adaugă tranzacție</button>
-<div id="bankList" style="margin-top:12px"></div>
+
+<!-- ECHIPE -->
+<section id="teams" class="view">
+<h2>Echipe / Montatori</h2>
+
+<div class="card">
+<h3>Adaugă echipă</h3>
+
+<label>
+Numele echipei
+<input id="teamName" placeholder="Ex: Echipa Marian">
+</label>
+
+<button class="btn" onclick="addTeam()">+ Adaugă echipă</button>
+</div>
+
+<div id="teamsList"></div>
 </section>
+
+
+<!-- FINANCIAR -->
+<section id="finance" class="view">
+<h2>Financiar</h2>
+
+<div id="financeContent"></div>
+</section>
+
 </main>
 
-<nav class="bottom">
-<button class="nav active" data-v="dashboard"><b>⌂</b>Acasă</button>
-<button class="nav" data-v="works"><b>🪟</b>Lucrări</button>
-<button class="nav" data-v="teams"><b>👷</b>Echipe</button>
-<button class="nav" data-v="finance"><b>💰</b>Financiar</button>
-<button class="nav" data-v="bank"><b>🏦</b>Bancă</button>
+
+<nav>
+<button class="active" onclick="showView('dashboard',this)">🏠<br>Acasă</button>
+<button onclick="showView('works',this)">🏗️<br>Lucrări</button>
+<button onclick="showView('teams',this)">👷<br>Echipe</button>
+<button onclick="showView('finance',this)">💰<br>Financiar</button>
 </nav>
 
-<div id="modal" class="modal"><div class="sheet"><button class="close" onclick="closeModal()">✕</button><div id="modalBody"></div></div></div>
+
+<!-- MODAL LUCRARE -->
+<div id="workModal" class="modal">
+<div class="sheet">
+<button class="close" onclick="closeModal('workModal')">✕</button>
+<div id="workModalContent"></div>
+</div>
+</div>
+
+
+<!-- MODAL SITUAȚIE -->
+<div id="situationModal" class="modal">
+<div class="sheet">
+<button class="close" onclick="closeModal('situationModal')">✕</button>
+<div id="situationContent"></div>
+</div>
+</div>
+
 
 <script>
-const KEY="manager_montaj_v1";
-let db=JSON.parse(localStorage.getItem(KEY)||'{"teams":[],"works":[],"tx":[],"situations":[],"settings":{"initialBank":0}}');
-if(!db.situations)db.situations=[];
-const lei=n=>new Intl.NumberFormat("ro-RO",{minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(n)||0)+" lei";
-const num=v=>Number(String(v).replace(",", "."))||0;
-function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function nav(v){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById(v).classList.add("active");document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.v===v))}
-document.querySelectorAll(".nav").forEach(x=>x.onclick=()=>nav(x.dataset.v));
-function openModal(html){document.getElementById("modalBody").innerHTML=html;document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-function openWork(id=null){
- const w=id?db.works.find(x=>x.id===id):null;
- const opts=db.teams.map(t=>`<option value="${t.id}" ${w?.teamId===t.id?"selected":""}>${esc(t.name)}</option>`).join("");
- openModal(`<h2>${w?"Editează lucrarea":"Lucrare nouă"}</h2>
- <label>Client</label><input id="wc" value="${esc(w?.client)}" placeholder="Nume client">
- <div class="row"><div><label>Telefon</label><input id="wt" value="${esc(w?.phone)}" inputmode="tel"></div><div><label>Data</label><input id="wd" type="date" value="${w?.date||new Date().toISOString().slice(0,10)}"></div></div>
- <label>Adresă</label><input id="wa" value="${esc(w?.address)}" placeholder="Adresă montaj">
- <div class="row"><div><label>Tip tâmplărie</label><select id="wtype"><option ${w?.type==="PVC"?"selected":""}>PVC</option><option ${w?.type==="Aluminiu"?"selected":""}>Aluminiu</option></select></div><div><label>Volum (m²)</label><input id="wm2" type="number" step="0.01" value="${w?.m2??""}" placeholder="0"></div></div>
- <div class="row"><div><label>Preț client (lei/m²)</label><input id="wp" type="number" step="0.01" value="${w?.clientPrice??""}" placeholder="0"></div><div><label>Echipă</label><select id="wteam"><option value="">— Selectează —</option>${opts}</select></div></div>
- <div class="row"><div><label>Cost echipă (lei/m²)</label><input id="wcpm" type="number" step="0.01" value="${w?.teamPrice??""}" placeholder="Se poate prelua automat"></div><div><label>Încasat de la client (lei)</label><input id="win" type="number" step="0.01" value="${w?.received??0}"></div></div>
- <label>Status</label><select id="ws"><option ${w?.status==="Programată"||!w?"selected":""}>Programată</option><option ${w?.status==="În lucru"?"selected":""}>În lucru</option><option ${w?.status==="Finalizată"?"selected":""}>Finalizată</option><option ${w?.status==="Problemă"?"selected":""}>Problemă</option></select>
- <label>Observații</label><input id="wo" value="${esc(w?.notes)}" placeholder="Detalii">
- <hr><div class="actions"><button onclick="saveWork('${id||""}')">💾 Salvează</button>${id?`<button class="btn red" onclick="deleteWork('${id}')">Șterge</button>`:""}</div>`);
- document.getElementById("wteam").onchange=()=>autoTeamPrice();
- document.getElementById("wtype").onchange=()=>autoTeamPrice();
- autoTeamPrice();
-}
-function autoTeamPrice(){let t=db.teams.find(x=>x.id===document.getElementById("wteam")?.value);if(!t)return;let type=document.getElementById("wtype").value;let el=document.getElementById("wcpm");let p=type==="PVC"?t.pvc:t.alum;if(p&&!el.value)el.value=p}
-function saveWork(id){
- let teamId=document.getElementById("wteam").value, m2=num(document.getElementById("wm2").value), cp=num(document.getElementById("wp").value), tp=num(document.getElementById("wcpm").value), rec=num(document.getElementById("win").value);
- let old=id?db.works.find(x=>x.id===id):null;
- let w={id:id||crypto.randomUUID(),client:document.getElementById("wc").value,phone:document.getElementById("wt").value,date:document.getElementById("wd").value,address:document.getElementById("wa").value,type:document.getElementById("wtype").value,m2,clientPrice:cp,teamId,teamPrice:tp,received:rec,status:document.getElementById("ws").value,notes:document.getElementById("wo").value};
- if(old)Object.assign(old,w);else db.works.unshift(w);save();closeModal()
-}
-function deleteWork(id){if(confirm("Ștergi lucrarea? Situațiile ei vor fi șterse și ele.")){db.works=db.works.filter(x=>x.id!==id);db.situations=db.situations.filter(x=>x.workId!==id);save();closeModal()}}
-function openSituation(workId){
- const w=db.works.find(x=>x.id===workId); if(!w)return;
- const team=db.teams.find(t=>t.id===w.teamId); const next=(db.situations.filter(x=>x.workId===workId).reduce((m,x)=>Math.max(m,Number(x.no)||0),0)+1);
- openModal(`<h2>Nouă situație de lucrări</h2><div class="card"><b>${esc(w.client||"Lucrare fără nume")}</b><div class="label">Situația nr. ${next}</div></div>
- <label>Număr situație</label><input id="sn" type="number" min="1" value="${next}">
- <label>Data</label><input id="sd" type="date" value="${new Date().toISOString().slice(0,10)}">
- <label>Descriere / perioadă</label><input id="sdesc" placeholder="Ex. Montaj etapa 1">
- <div class="row"><div><label>m² situație</label><input id="sm2" type="number" step="0.01" value="${w.m2||0}"></div><div><label>Preț client lei/m²</label><input id="scp" type="number" step="0.01" value="${w.clientPrice||0}"></div></div>
- <div class="card"><b>Client</b><div class="label">Valoare situație: <span id="sct">${lei((w.m2||0)*(w.clientPrice||0))}</span></div></div>
- <div class="card"><b>Montatori</b><div class="label">${team?esc(team.name):"Fără echipă"} • ${lei(w.teamPrice||0)}/m²</div><div class="label">Valoare montatori: <span id="sitcost">${lei((w.m2||0)*(w.teamPrice||0))}</span></div></div>
- <label>Încasare client acum (opțional)</label><input id="srec" type="number" step="0.01" value="0">
- <label>Plată montatori acum (opțional)</label><input id="spay" type="number" step="0.01" value="0">
- <label>Observații</label><input id="snotes" placeholder="Observații">
- <hr><button onclick="saveSituation('${workId}')">💾 Creează situația</button>`);
- const upd=()=>{let m=num(document.getElementById("sm2").value),cp=num(document.getElementById("scp").value),tp=w.teamPrice||0;document.getElementById("sct").textContent=lei(m*cp);document.getElementById("sitcost").textContent=lei(m*tp)};document.getElementById("sm2").oninput=upd;document.getElementById("scp").oninput=upd;
-}
-function saveSituation(workId){
- const w=db.works.find(x=>x.id===workId); if(!w)return;
- const no=Math.max(1,Math.floor(num(document.getElementById("sn").value))); if(db.situations.some(x=>x.workId===workId&&Number(x.no)===no)){alert("Există deja această situație pentru lucrare.");return;}
- const m2=num(document.getElementById("sm2").value), cp=num(document.getElementById("scp").value), cost=m2*num(w.teamPrice), value=m2*cp, rec=Math.min(value,Math.max(0,num(document.getElementById("srec").value))), pay=Math.min(cost,Math.max(0,num(document.getElementById("spay").value)));
- db.situations.push({id:crypto.randomUUID(),workId,no,date:document.getElementById("sd").value,desc:document.getElementById("sdesc").value,m2,clientPrice:cp,clientValue:value,clientPaid:rec,teamId:w.teamId,teamPrice:w.teamPrice,teamValue:cost,teamPaid:pay,notes:document.getElementById("snotes").value});
- save();closeModal();
-}
-function situationPayment(id,kind){const s=db.situations.find(x=>x.id===id);if(!s)return;const max=kind==="client"?Math.max(0,s.clientValue-s.clientPaid):Math.max(0,s.teamValue-s.teamPaid);const v=num(prompt(`Sumă ${kind==="client"?"încasată de la client":"plătită montatorilor"} (maxim ${lei(max)}):`,max?"":""));if(!v)return;if(v>max){alert("Suma depășește soldul situației.");return;}if(kind==="client")s.clientPaid+=v;else s.teamPaid+=v;save()}
-function printSituation(id){const s=db.situations.find(x=>x.id===id);if(!s)return;const w=db.works.find(x=>x.id===s.workId)||{},team=db.teams.find(t=>t.id===s.teamId)||{};const cd=Math.max(0,s.clientValue-s.clientPaid),td=Math.max(0,s.teamValue-s.teamPaid);const html=`<!doctype html><html><head><meta charset="utf-8"><title>Situația ${s.no} - ${esc(w.client||"")}</title><style>body{font-family:Arial,sans-serif;padding:35px;color:#111}h1{font-size:24px;margin-bottom:4px}.sub{color:#555;margin-bottom:25px}.box{border:1px solid #ddd;border-radius:10px;padding:16px;margin:14px 0}table{width:100%;border-collapse:collapse}td{padding:9px;border-bottom:1px solid #eee}td:last-child{text-align:right;font-weight:700}.total{font-size:18px}@media print{body{padding:10mm}}</style></head><body><h1>SITUAȚIE DE LUCRĂRI NR. ${s.no}</h1><div class="sub">Lucrare: <b>${esc(w.client||"")}</b> • Data: ${esc(s.date||"")}</div><div class="box"><b>Client</b><table><tr><td>Cantitate</td><td>${Number(s.m2||0).toFixed(2)} m²</td></tr><tr><td>Preț</td><td>${lei(s.clientPrice)}/m²</td></tr><tr><td>Valoare situație</td><td class="total">${lei(s.clientValue)}</td></tr><tr><td>Încasat</td><td>${lei(s.clientPaid)}</td></tr><tr><td>Sold de încasat</td><td>${lei(cd)}</td></tr></table></div><div class="box"><b>Montatori</b><table><tr><td>Echipă</td><td>${esc(team.name||"Fără echipă")}</td></tr><tr><td>Cost</td><td>${lei(s.teamPrice)}/m²</td></tr><tr><td>Valoare montatori</td><td class="total">${lei(s.teamValue)}</td></tr><tr><td>Plătit</td><td>${lei(s.teamPaid)}</td></tr><tr><td>Sold de plată</td><td>${lei(td)}</td></tr></table></div>${s.desc?`<div class="box"><b>Descriere / perioadă:</b><br>${esc(s.desc)}</div>`:""}${s.notes?`<div class="box"><b>Observații:</b><br>${esc(s.notes)}</div>`:""}<script>window.onload=()=>window.print()<\/script></body></html>`;const win=window.open("","_blank");if(win){win.document.write(html);win.document.close()}}
-function situationHtml(s){let w=db.works.find(x=>x.id===s.workId),team=db.teams.find(t=>t.id===s.teamId),cd=Math.max(0,s.clientValue-s.clientPaid),td=Math.max(0,s.teamValue-s.teamPaid);return `<div class="list-item"><div class="actions" style="justify-content:space-between"><div><b>Situația nr. ${s.no} – ${esc(w?.client||"")}</b><div class="label">${esc(s.date||"")} ${s.desc?"• "+esc(s.desc):""}</div></div><span class="badge blue">${lei(s.clientValue)}</span></div><div class="label">${s.m2.toFixed(2)} m² • Client: încasat ${lei(s.clientPaid)}, rămas ${lei(cd)}</div><div class="label">Montatori: ${esc(team?.name||"Fără echipă")} • datorat ${lei(td)} din ${lei(s.teamValue)}</div><div class="actions" style="margin-top:8px"><button class="btn small" onclick="situationPayment('${s.id}','client')">+ Încasare client</button><button class="btn small secondary" onclick="situationPayment('${s.id}','team')">+ Plată montatori</button><button class="btn small secondary" onclick="printSituation('${s.id}')">🖨️ Tipărește situația</button></div></div>`}
 
-function openTeam(id=null){
- let t=id?db.teams.find(x=>x.id===id):null;
- openModal(`<h2>${t?"Editează echipa":"Echipă nouă"}</h2><label>Nume echipă</label><input id="tn" value="${esc(t?.name)}" placeholder="Echipa 1">
- <div class="row"><div><label>Preț PVC (lei/m²)</label><input id="tpvc" type="number" step=".01" value="${t?.pvc??""}"></div><div><label>Preț Aluminiu (lei/m²)</label><input id="tal" type="number" step=".01" value="${t?.alum??""}"></div></div>
- <label>Membri</label><input id="tm" value="${esc(t?.members)}" placeholder="Nume montatori">
- <label>Telefon</label><input id="tt" value="${esc(t?.phone)}" inputmode="tel">
- <hr><div class="actions"><button onclick="saveTeam('${id||""}')">💾 Salvează</button>${id?`<button class="btn red" onclick="deleteTeam('${id}')">Șterge</button>`:""}</div>`)
+let db = JSON.parse(localStorage.getItem("managerMontaj")) || {
+ works:[],
+ teams:[],
+ situations:[]
+};
+
+function save(){
+ localStorage.setItem("managerMontaj",JSON.stringify(db));
+ renderAll();
 }
-function saveTeam(id){let old=id?db.teams.find(x=>x.id===id):null,t={id:id||crypto.randomUUID(),name:document.getElementById("tn").value||"Echipă fără nume",pvc:num(document.getElementById("tpvc").value),alum:num(document.getElementById("tal").value),members:document.getElementById("tm").value,phone:document.getElementById("tt").value};if(old)Object.assign(old,t);else db.teams.push(t);save();closeModal()}
-function deleteTeam(id){if(db.works.some(w=>w.teamId===id)){alert("Nu poți șterge echipa cât timp are lucrări asociate.");return}if(confirm("Ștergi echipa?")){db.teams=db.teams.filter(x=>x.id!==id);save();closeModal()}}
-function openBank(){
- openModal(`<h2>Tranzacție bancară</h2><label>Tip</label><select id="bt"><option value="in">Încasare de la client</option><option value="out">Plată către montator</option><option value="otherout">Altă plată</option><option value="otherin">Altă încasare</option></select>
- <label>Sumă (lei)</label><input id="ba" type="number" step=".01" placeholder="0"><label>Descriere</label><input id="bd" placeholder="Ex. Avans Popescu / plată Echipa 1"><label>Data</label><input id="bdate" type="date" value="${new Date().toISOString().slice(0,10)}">
- <hr><button onclick="saveBank()">💾 Salvează</button>`)
+
+function lei(n){
+ return Number(n||0).toLocaleString("ro-RO")+" lei";
 }
-function saveBank(){db.tx.unshift({id:crypto.randomUUID(),type:document.getElementById("bt").value,amount:num(document.getElementById("ba").value),desc:document.getElementById("bd").value,date:document.getElementById("bdate").value});save();closeModal()}
-function delTx(id){if(confirm("Ștergi tranzacția?")){db.tx=db.tx.filter(x=>x.id!==id);save()}}
-function calc(){let value=0,cost=0,received=0,paidTeam=0;db.works.forEach(w=>{value+=w.m2*w.clientPrice;cost+=w.m2*w.teamPrice;let ss=db.situations.filter(s=>s.workId===w.id);if(ss.length){received+=ss.reduce((a,s)=>a+s.clientPaid,0);paidTeam+=ss.reduce((a,s)=>a+s.teamPaid,0)}else{received+=w.received||0;paidTeam+=w.paidTeam||0}});let bank=db.settings.initialBank;db.tx.forEach(t=>bank+=["in","otherin"].includes(t.type)?t.amount:-t.amount);let due=Math.max(0,value-received),pay=Math.max(0,cost-paidTeam);let profit=value-cost;return{value,cost,received,due,pay,profit,bank}}
-function render(){
- const c=calc();document.getElementById("mBank").textContent=lei(c.bank);document.getElementById("mReceivable").textContent=lei(c.due);document.getElementById("mPayable").textContent=lei(c.pay);document.getElementById("mProfit").textContent=lei(c.profit);
- document.getElementById("fValue").textContent=lei(c.value);document.getElementById("fIn").textContent=lei(c.received);document.getElementById("fDue").textContent=lei(c.due);document.getElementById("fCost").textContent=lei(c.cost);document.getElementById("fProfit").textContent=lei(c.profit);
- let paid=db.tx.filter(t=>t.type==="out").reduce((s,t)=>s+t.amount,0);document.getElementById("fReal").textContent=lei(c.received-paid);
- document.getElementById("bankBalance").textContent=lei(c.bank);
- document.getElementById("worksList").innerHTML=db.works.length?db.works.map(workHtml).join(""):`<div class="card empty">Nu ai lucrări încă.</div>`;
- document.getElementById("recentWorks").innerHTML=db.works.slice(0,5).map(workHtml).join("")||`<div class="empty">Adaugă prima lucrare.</div>`;
- document.getElementById("teamsList").innerHTML=db.teams.length?db.teams.map(t=>`<div class="card"><h3>${esc(t.name)}</h3><div class="label">${esc(t.members||"Fără membri")} ${t.phone?"• "+esc(t.phone):""}</div><hr><div class="row"><div><span class="label">PVC</span><br><b>${lei(t.pvc)}/m²</b></div><div><span class="label">Aluminiu</span><br><b>${lei(t.alum)}/m²</b></div></div><div class="actions" style="margin-top:10px"><button class="btn small secondary" onclick="openTeam('${t.id}')">Editează</button></div></div>`).join(""):`<div class="card empty">Nu ai echipe încă.</div>`;
- document.getElementById("bankList").innerHTML=db.tx.length?db.tx.map(t=>`<div class="card"><div class="actions" style="justify-content:space-between"><div><b>${t.type==="in"||t.type==="otherin"?"↙️":"↗️"} ${lei(t.amount)}</b><div class="label">${esc(t.desc||"Fără descriere")} • ${esc(t.date)}</div></div><button class="btn small red" onclick="delTx('${t.id}')">Șterge</button></div></div>`).join(""):`<div class="card empty">Nu ai tranzacții.</div>`;
- document.getElementById("teamDue").innerHTML=db.teams.map(t=>{let cost=db.works.filter(w=>w.teamId===t.id).reduce((s,w)=>s+w.m2*w.teamPrice,0);let paid=db.tx.filter(x=>x.type==="out"&&x.desc?.toLowerCase().includes(t.name.toLowerCase())).reduce((s,x)=>s+x.amount,0);return `<div class="list-item"><b>${esc(t.name)}</b><span class="right red" style="float:right">${lei(Math.max(0,cost-paid))}</span><div class="label">Cost total: ${lei(cost)} • plătit: ${lei(paid)}</div></div>`}).join("")||`<div class="empty">Adaugă echipe pentru a vedea soldurile.</div>`;
+
+function id(){
+ return Date.now().toString(36)+Math.random().toString(36).slice(2);
 }
-function workHtml(w){let total=w.m2*w.clientPrice,cost=w.m2*w.teamPrice,ss=db.situations.filter(s=>s.workId===w.id),received=ss.length?ss.reduce((a,s)=>a+s.clientPaid,0):w.received||0,paidTeam=ss.length?ss.reduce((a,s)=>a+s.teamPaid,0):w.paidTeam||0,due=Math.max(0,total-received),team=db.teams.find(t=>t.id===w.teamId);let cls=w.status==="Finalizată"?"green":w.status==="Problemă"?"red":"orange";return `<div class="card"><div class="actions" style="justify-content:space-between"><div><h3>${esc(w.client||"Client fără nume")}</h3><span class="badge ${cls}">${esc(w.status)}</span></div><button class="btn small secondary" onclick="openWork('${w.id}')">Editează</button></div><div class="label" style="margin-top:9px">${esc(w.type)} • ${w.m2.toFixed(2)} m² • ${esc(w.date||"Fără dată")} ${team?"• "+esc(team.name):"• Fără echipă"}</div><table><tr><td>Valoare client</td><td class="right">${lei(total)}</td></tr><tr><td>Cost montatori</td><td class="right red">${lei(cost)}</td></tr><tr><td>Încasat</td><td class="right green">${lei(received)}</td></tr><tr><td>De încasat</td><td class="right orange">${lei(due)}</td></tr><tr><td>Plătit montatori</td><td class="right">${lei(paidTeam)}</td></tr><tr><td><b>Profit</b></td><td class="right green"><b>${lei(total-cost)}</b></td></tr></table><div class="actions" style="margin-top:10px"><button onclick="openSituation('${w.id}')">📄 Situație nouă</button></div>${ss.length?`<div style="margin-top:12px"><h3>Situații de lucrări (${ss.length})</h3>${ss.map(situationHtml).join("")}</div>`:`<div class="label" style="margin-top:10px">Nu există situații de lucrări.</div>`}</div>`}
-render();
+
+function showView(name,btn){
+
+ document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
+ document.getElementById(name).classList.add("active");
+
+ document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+ if(btn) btn.classList.add("active");
+
+ renderAll();
+}
+
+
+function addWork(){
+
+ const name=document.getElementById("workName").value.trim();
+ const client=document.getElementById("workClient").value.trim();
+ const value=Number(document.getElementById("workValue").value||0);
+
+ if(!name){
+  alert("Introdu numele lucrării.");
+  return;
+ }
+
+ db.works.push({
+  id:id(),
+  name,
+  client,
+  value,
+  created:new Date().toISOString()
+ });
+
+ document.getElementById("workName").value="";
+ document.getElementById("workClient").value="";
+ document.getElementById("workValue").value="";
+
+ save();
+
+ alert("Lucrarea a fost adăugată.");
+}
+
+
+function addTeam(){
+
+ const name=document.getElementById("teamName").value.trim();
+
+ if(!name){
+  alert("Introdu numele echipei.");
+  return;
+ }
+
+ db.teams.push({
+  id:id(),
+  name
+ });
+
+ document.getElementById("teamName").value="";
+
+ save();
+}
+
+
+function getSituations(workId){
+ return db.situations.filter(s=>s.workId===workId);
+}
+
+
+function getClientPaid(workId){
+
+ return getSituations(workId)
+ .reduce((sum,s)=>sum+Number(s.clientPaid||0),0);
+}
+
+
+function getTeamPaid(workId){
+
+ return getSituations(workId)
+ .reduce((sum,s)=>sum+Number(s.teamPaid||0),0);
+}
+
+
+function renderDashboard(){
+
+ document.getElementById("mWorks").textContent=db.works.length;
+
+ const value=db.works.reduce((a,w)=>a+Number(w.value||0),0);
+ const paid=db.works.reduce((a,w)=>a+getClientPaid(w.id),0);
+
+ document.getElementById("mValue").textContent=lei(value);
+ document.getElementById("mClientPaid").textContent=lei(paid);
+ document.getElementById("mClientDebt").textContent=lei(value-paid);
+
+ const recent=document.getElementById("recentWorks");
+
+ if(!db.works.length){
+  recent.innerHTML='<div class="empty">Nu există lucrări.</div>';
+  return;
+ }
+
+ recent.innerHTML=db.works.slice().reverse().slice(0,5).map(w=>{
+
+  const paid=getClientPaid(w.id);
+  const debt=Math.max(0,w.value-paid);
+
+  return `
+  <div class="row">
+   <div>
+    <strong>${esc(w.name)}</strong><br>
+    <small>${esc(w.client||"Fără client")}</small>
+   </div>
+   <div class="right">
+    ${lei(w.value)}<br>
+    <span class="badge ${debt===0?'green':'orange'}">
+    ${debt===0?'Achitat':'Rest '+lei(debt)}
+    </span>
+   </div>
+  </div>
+  `;
+ }).join("");
+}
+
+
+function renderWorks(){
+
+ const box=document.getElementById("worksList");
+
+ if(!db.works.length){
+  box.innerHTML='<div class="card empty">Nu există lucrări.</div>';
+  return;
+ }
+
+ box.innerHTML=db.works.slice().reverse().map(w=>{
+
+  const situations=getSituations(w.id);
+  const paid=getClientPaid(w.id);
+  const debt=Math.max(0,w.value-paid);
+
+  return `
+  <div class="card">
+
+   <h2>${esc(w.name)}</h2>
+
+   <div class="row">
+    <span>Client</span>
+    <strong>${esc(w.client||"—")}</strong>
+   </div>
+
+   <div class="row">
+    <span>Valoare lucrare</span>
+    <strong>${lei(w.value)}</strong>
+   </div>
+
+   <div class="row">
+    <span>Încasat</span>
+    <strong style="color:#16a34a">${lei(paid)}</strong>
+   </div>
+
+   <div class="row">
+    <span>Rest de încasat</span>
+    <strong style="color:${debt?'#dc2626':'#16a34a'}">${lei(debt)}</strong>
+   </div>
+
+   <div style="margin-top:15px">
+    <strong>Situații de lucrări</strong>
+   </div>
+
+   ${
+    situations.length
+    ?
+    situations.map(s=>`
+
+    <div class="row">
+     <div>
+      <strong>${esc(w.name)} – Situația nr. ${s.no}</strong><br>
+      <small>${formatDate(s.date)}</small>
+     </div>
+
+     <div class="right">
+      ${lei(s.clientValue)}<br>
+
+      <span class="badge ${
+       Number(s.clientPaid)>=Number(s.clientValue)
+       ?'green':'orange'
+      }">
+       Client: ${lei(s.clientPaid)}
+      </span>
+
+      <br>
+
+      <span class="badge ${
+       Number(s.teamPaid)>=Number(s.teamValue)
+       ?'green':'orange'
+      }">
+       Montatori: ${lei(s.teamPaid)}
+      </span>
+
+      <br>
+
+      <button class="gray" onclick="openSituation('${s.id}')">
+       Deschide
+      </button>
+     </div>
+    </div>
+
+    `).join("")
+    :
+    '<div class="empty">Nu există situații pentru această lucrare.</div>'
+   }
+
+   <div class="actions">
+    <button class="btn" onclick="openNewSituation('${w.id}')">
+     📄 + Situație nouă
+    </button>
+
+    <button class="gray" onclick="openWork('${w.id}')">
+     📊 Detalii
+    </button>
+
+    <button class="red" onclick="deleteWork('${w.id}')">
+     🗑️ Șterge
+    </button>
+   </div>
+
+  </div>
+  `;
+ }).join("");
+}
+
+
+function openNewSituation(workId){
+
+ const w=db.works.find(x=>x.id===workId);
+ if(!w)return;
+
+ const situations=getSituations(workId);
+ const next=situations.length
+  ? Math.max(...situations.map(x=>Number(x.no)))+1
+  : 1;
+
+ document.getElementById("situationContent").innerHTML=`
+
+ <h2>${esc(w.name)} – Situația nr. ${next}</h2>
+
+ <label>
+ Data
+ <input id="sitDate" type="date" value="${new Date().toISOString().slice(0,10)}">
+ </label>
+
+ <label>
+ Descriere
+ <input id="sitDesc" placeholder="Ex: Montaj etaj 1">
+ </label>
+
+ <label>
+ Valoarea situației pentru client
+ <input id="sitClientValue" type="number" min="0">
+ </label>
+
+ <label>
+ Valoarea pentru montatori
+ <input id="sitTeamValue" type="number" min="0">
+ </label>
+
+ <div class="actions">
+  <button class="btn" onclick="createSituation('${w.id}',${next})">
+   Creează situația
+  </button>
+
+  <button class="gray" onclick="closeModal('situationModal')">
+   Renunță
+  </button>
+ </div>
+
+ <p>
+ <small>
+ După creare, situația pentru montatori este generată automat
+ pentru aceeași lucrare și același număr de situație.
+ </small>
+ </p>
+ `;
+
+ openModal("situationModal");
+}
+
+
+function createSituation(workId,no){
+
+ const clientValue=Number(document.getElementById("sitClientValue").value||0);
+ const teamValue=Number(document.getElementById("sitTeamValue").value||0);
+
+ if(clientValue<=0){
+  alert("Introdu valoarea situației.");
+  return;
+ }
+
+ const s={
+  id:id(),
+  workId,
+  no,
+  date:document.getElementById("sitDate").value,
+  desc:document.getElementById("sitDesc").value,
+  clientValue,
+  clientPaid:0,
+  teamValue,
+  teamPaid:0,
+  payments:[]
+ };
+
+ db.situations.push(s);
+
+ closeModal("situationModal");
+ save();
+
+ alert(
+  "Situația nr. "+no+" a fost creată.\n\n"+
+  "A fost creată automat și partea pentru montatori."
+ );
+}
+
+
+function openSituation(sid){
+
+ const s=db.situations.find(x=>x.id===sid);
+ if(!s)return;
+
+ const w=db.works.find(x=>x.id===s.workId);
+
+ const clientDebt=Math.max(0,s.clientValue-s.clientPaid);
+ const teamDebt=Math.max(0,s.teamValue-s.teamPaid);
+
+ document.getElementById("situationContent").innerHTML=`
+
+ <h2>${esc(w.name)} – Situația nr. ${s.no}</h2>
+
+ <p>${esc(s.desc||"Fără descriere")}</p>
+
+ <div class="card">
+ <h3>💰 Client</h3>
+
+ <div class="row">
+  <span>Valoare situație</span>
+  <strong>${lei(s.clientValue)}</strong>
+ </div>
+
+ <div class="row">
+  <span>Încasat</span>
+  <strong style="color:#16a34a">${lei(s.clientPaid)}</strong>
+ </div>
+
+ <div class="row">
+  <span>Rest</span>
+  <strong style="color:${clientDebt?'#dc2626':'#16a34a'}">
+   ${lei(clientDebt)}
+  </strong>
+ </div>
+
+ <div class="actions">
+  <button class="green" onclick="payClient('${s.id}')">
+   💵 Încasează client
+  </button>
+ </div>
+ </div>
+
+
+ <div class="card">
+ <h3>👷 Montatori</h3>
+
+ <div class="row">
+  <span>Valoare montatori</span>
+  <strong>${lei(s.teamValue)}</strong>
+ </div>
+
+ <div class="row">
+  <span>Plătit</span>
+  <strong style="color:#16a34a">${lei(s.teamPaid)}</strong>
+ </div>
+
+ <div class="row">
+  <span>Rest</span>
+  <strong style="color:${teamDebt?'#dc2626':'#16a34a'}">
+   ${lei(teamDebt)}
+  </strong>
+ </div>
+
+ <div class="actions">
+  <button class="btn" onclick="payTeam('${s.id}')">
+   👷 Plătește montatori
+  </button>
+ </div>
+ </div>
+
+
+ <div class="card">
+ <h3>📊 Istoric plăți</h3>
+
+ ${
+  s.payments.length
+  ?
+  s.payments.slice().reverse().map(p=>`
+   <div class="row">
+    <div>
+     <strong>${p.type==="client"?"Client":"Montatori"}</strong><br>
+     <small>${formatDate(p.date)}</small>
+    </div>
+    <strong>${lei(p.amount)}</strong>
+   </div>
+  `).join("")
+  :
+  '<div class="empty">Nu există plăți.</div>'
+ }
+
+ </div>
+
+
+ <div class="actions">
+  <button class="gray" onclick="printSituation('${s.id}')">
+   🖨️ Tipărește / PDF
+  </button>
+
+  <button class="red" onclick="deleteSituation('${s.id}')">
+   🗑️ Șterge situația
+  </button>
+ </div>
+ `;
+
+ openModal("situationModal");
+}
+
+
+function payClient(sid){
+
+ const amount=Number(prompt("Cât a plătit clientul acum?")||0);
+ if(amount<=0)return;
+
+ const s=db.situations.find(x=>x.id===sid);
+
+ const remaining=s.clientValue-s.clientPaid;
+
+ if(amount>remaining){
+  alert("Suma este mai mare decât restul de plată.");
+  return;
+ }
+
+ s.clientPaid+=amount;
+
+ s.payments.push({
+  type:"client",
+  amount,
+  date:new Date().toISOString()
+ });
+
+ save();
+ openSituation(sid);
+}
+
+
+function payTeam(sid){
+
+ const amount=Number(prompt("Cât ai plătit montatorilor acum?")||0);
+ if(amount<=0)return;
+
+ const s=db.situations.find(x=>x.id===sid);
+
+ const remaining=s.teamValue-s.teamPaid;
+
+ if(amount>remaining){
+  alert("Suma este mai mare decât restul pentru montatori.");
+  return;
+ }
+
+ s.teamPaid+=amount;
+
+ s.payments.push({
+  type:"team",
+  amount,
+  date:new Date().toISOString()
+ });
+
+ save();
+ openSituation(sid);
+}
+
+
+function openWork(workId){
+
+ const w=db.works.find(x=>x.id===workId);
+ const situations=getSituations(workId);
+
+ document.getElementById("workModalContent").innerHTML=`
+
+ <h2>${esc(w.name)}</h2>
+
+ <p><strong>Client:</strong> ${esc(w.client||"—")}</p>
+ <p><strong>Valoare:</strong> ${lei(w.value)}</p>
+
+ <h3>Situații</h3>
+
+ ${
+  situations.length
+  ?
+  situations.map(s=>`
+   <div class="row">
+    <div>
+     <strong>Situația nr. ${s.no}</strong><br>
+     ${esc(s.desc||"")}
+    </div>
+    <div class="right">
+     ${lei(s.clientValue)}
+    </div>
+   </div>
+  `).join("")
+  :
+  '<div class="empty">Nu există situații.</div>'
+ }
+ `;
+
+ openModal("workModal");
+}
+
+
+function renderTeams(){
+
+ const box=document.getElementById("teamsList");
+
+ if(!db.teams.length){
+  box.innerHTML='<div class="card empty">Nu există echipe.</div>';
+  return;
+ }
+
+ box.innerHTML=db.teams.map(t=>`
+  <div class="card">
+   <h3>👷 ${esc(t.name)}</h3>
+   <button class="red" onclick="deleteTeam('${t.id}')">
+    Șterge
+   </button>
+  </div>
+ `).join("");
+}
+
+
+function renderFinance(){
+
+ const box=document.getElementById("financeContent");
+
+ let totalClient=0;
+ let totalTeam=0;
+
+ db.situations.forEach(s=>{
+  totalClient+=Number(s.clientPaid||0);
+  totalTeam+=Number(s.teamPaid||0);
+ });
+
+ box.innerHTML=`
+
+ <div class="grid">
+
+  <div class="metric">
+   Încasări clienți
+   <strong>${lei(totalClient)}</strong>
+  </div>
+
+  <div class="metric">
+   Plăți montatori
+   <strong>${lei(totalTeam)}</strong>
+  </div>
+
+  <div class="metric">
+   Diferență
+   <strong>${lei(totalClient-totalTeam)}</strong>
+  </div>
+
+ </div>
+
+ <div class="card" style="margin-top:15px">
+ <h3>Toate situațiile</h3>
+
+ ${
+  db.situations.length
+  ?
+  db.situations.slice().reverse().map(s=>{
+
+   const w=db.works.find(x=>x.id===s.workId);
+   if(!w)return "";
+
+   return `
+   <div class="row">
+    <div>
+     <strong>${esc(w.name)} – Situația nr. ${s.no}</strong><br>
+     Client: ${esc(w.client||"—")}
+    </div>
+
+    <div class="right">
+     Client: ${lei(s.clientPaid)}<br>
+     Montatori: ${lei(s.teamPaid)}
+    </div>
+   </div>
+   `;
+
+  }).join("")
+  :
+  '<div class="empty">Nu există situații.</div>'
+ }
+ </div>
+ `;
+}
+
+
+function deleteWork(workId){
+
+ if(!confirm("Ștergi lucrarea și toate situațiile ei?"))return;
+
+ db.works=db.works.filter(w=>w.id!==workId);
+ db.situations=db.situations.filter(s=>s.workId!==workId);
+
+ save();
+}
+
+
+function deleteTeam(teamId){
+
+ if(!confirm("Ștergi această echipă?"))return;
+
+ db.teams=db.teams.filter(t=>t.id!==teamId);
+
+ save();
+}
+
+
+function deleteSituation(sid){
+
+ if(!confirm("Ștergi această situație și istoricul ei de plăți?"))return;
+
+ db.situations=db.situations.filter(s=>s.id!==sid);
+
+ closeModal("situationModal");
+ save();
+}
+
+
+function openModal(id){
+ document.getElementById(id).classList.add("show");
+}
+
+
+function closeModal(id){
+ document.getElementById(id).classList.remove("show");
+}
+
+
+function formatDate(d){
+
+ if(!d)return "—";
+
+ return new Date(d).toLocaleDateString("ro-RO");
+}
+
+
+function esc(value){
+
+ return String(value||"")
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
+}
+
+
+function printSituation(sid){
+
+ const s=db.situations.find(x=>x.id===sid);
+ const w=db.works.find(x=>x.id===s.workId);
+
+ const html=`
+ <!DOCTYPE html>
+ <html lang="ro">
+ <head>
+ <meta charset="UTF-8">
+ <title>${esc(w.name)} - Situația nr. ${s.no}</title>
+ <style>
+ body{font-family:Arial;padding:40px;color:#111}
+ h1{margin-bottom:5px}
+ table{width:100%;border-collapse:collapse;margin-top:30px}
+ td,th{border:1px solid #ccc;padding:12px;text-align:left}
+ .right{text-align:right}
+ </style>
+ </head>
+ <body>
+
+ <h1>${esc(w.name)}</h1>
+ <h2>Situația de lucrări nr. ${s.no}</h2>
+
+ <p><strong>Client:</strong> ${esc(w.client||"—")}</p>
+ <p><strong>Data:</strong> ${formatDate(s.date)}</p>
+ <p><strong>Descriere:</strong> ${esc(s.desc||"—")}</p>
+
+ <table>
+ <tr>
+  <th>Descriere</th>
+  <th>Valoare</th>
+ </tr>
+
+ <tr>
+  <td>Valoare situație client</td>
+  <td class="right">${lei(s.clientValue)}</td>
+ </tr>
+
+ <tr>
+  <td>Încasat</td>
+  <td class="right">${lei(s.clientPaid)}</td>
+ </tr>
+
+ <tr>
+  <td>Rest de încasat</td>
+  <td class="right">${lei(s.clientValue-s.clientPaid)}</td>
+ </tr>
+
+ <tr>
+  <td>Valoare montatori</td>
+  <td class="right">${lei(s.teamValue)}</td>
+ </tr>
+
+ <tr>
+  <td>Plătit montatorilor</td>
+  <td class="right">${lei(s.teamPaid)}</td>
+ </tr>
+
+ <tr>
+  <td>Rest montatori</td>
+  <td class="right">${lei(s.teamValue-s.teamPaid)}</td>
+ </tr>
+
+ </table>
+
+ <br><br>
+ Semnătură client: __________________________
+
+ <br><br>
+ Semnătură responsabil: _____________________
+
+ </body>
+ </html>
+ `;
+
+ const win=window.open("","_blank");
+
+ if(!win){
+  alert("Browserul a blocat fereastra. Permite pop-up-urile.");
+  return;
+ }
+
+ win.document.write(html);
+ win.document.close();
+
+ setTimeout(()=>win.print(),300);
+}
+
+
+function renderAll(){
+ renderDashboard();
+ renderWorks();
+ renderTeams();
+ renderFinance();
+}
+
+renderAll();
+
 </script>
+
 </body>
 </html>
